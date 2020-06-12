@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+h1{
+    text-align: center;
+}
+h2{
+	margin-top: 20px;
+}
+main{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+}
+
+form{
+    display: flex;
+    align-items: center;
+    flex-direction:column;
+    background-color:rgba(256,256,256,0.5);
+	border-radius:10px;
+	width:50vw;
+}
+.firstPart{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+}
+.firstPart label {
+	margin-top: 15px;
+}
+.form-control {
+	margin-top: 10px;
+}
+.form-control {
+	margin-bottom: 10px;
+}
+.instruments div {
+    width: 30%;
+    height:50px;
+}
+.instruments{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width:80%;
+    height:30%;
+}
+.titreAnnonce{
+    margin-top: 10px;
+	width: 100%;
+}
+.ville{
+    margin-top: 10px;
+    margin-bottom: 10px;
+	width: 100%;
+}
+.coche{
+    margin-bottom: 10px;
+}
+.description{
+    margin-top: 10px;
+}
+.bouton2{
+    margin-left: 10px;
+}
+textarea{
+    width: 100%;
+}
+@media screen and (max-width: 700px){
+    body{
+        display: block;
+    }
+    .titreAnnonce1{
+        text-align: center;
+    }
+    .localisation{
+        text-align: center;
+    }
+    .coche{
+        text-align: center;
+    }
+    .instruments{
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
+    .description1{
+        text-align: center;
+    }
+    .boutons{
+        text-align: center;
+    }
+}
+@media screen and (max-width: 606px){
+    .instruments div {
+        width: 100%;
+    }
+}
+
+.cardHead{
+	display:flex;
+	justify-content: space-between;
+}
+
+.actionImg{
+	display:flex;
+	justify-content:flex-end;
+}
+.actionImg img{
+	margin:5px;
+	width:25px;
+}
+
+.card-footer{
+	color:white;
+	text-align:right;
+	margin-right:10px;
+}

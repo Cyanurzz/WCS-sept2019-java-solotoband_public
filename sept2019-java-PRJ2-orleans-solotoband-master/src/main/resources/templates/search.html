@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Solo To Band | Page de Recherche de Groupes</title>
+		<meta name="Author" content="Wild Code Company">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="Description" content="Ici vous pouvez cherchez et trouvez le groupes de vos rèves en quelques cliques. Solo to Band l'application n°1 de rencontre de Musiciens à Groupes ">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Bad+Script&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
+		<link rel="stylesheet" href="/CSS/globalStyle.css">
+		<link rel="stylesheet" href="/CSS/styleFooter.css">
+	</head>
+	<body>
+		<header th:replace="navBar.html :: top"></header>
+		<main>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/">Home</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Home</li>
+				</ol>
+			</nav>
+			<div class="jumbotron text-white bg-dark">
+				<div class="completJumbotron">
+					<div class="jumbo">
+						<h1 th:text="|Bonjour ${account.pseudo}|"></h1>
+						<hr class="my-4">
+						<div class="blocImg">
+							<img th:src="${account.img}" alt="..." class="imgJumbotron">
+							<div class="ident">
+								<p th:text="|Style: ${account.style}|"></p>
+								<p th:text="|Localité: ${account.locate}|"></p>
+								<p th:text="|Tel: ${account.contactTel}|"></p>
+								<p th:text="|Mail: ${account.contactMail}|"></p>
+							</div>
+							<a class="btn btn-primary btn-lg bouton" th:href="|/annonces/${account.idMusician}|" role="button">Gerer mes annonces</a>
+						</div>
+					</div>
+					<div class="pub">
+						<p>Publicités</p>
+						<img src="/img/pub1.png" alt="photo de pub">
+						<img src="/img/pub2.gif" alt="photo de pub">
+					</div>
+				</div>
+			</div>
+			<hr>
+			<section class="lastWanted  row no-gutters">
+				<h2 class="col-11 selectionTitle"> Voici quelques annonces que nous avons séléctionnées pour toi ! </h2>
+					<div th:each="announcement, iterStat : ${AdSelection}" th:if="${iterStat.index}<4" class="card-group col-md-2 col-11 mx-auto bg-dark text-light d-flex justify-content-between ">
+						<div class="row no-gutters Resultcard">
+							<small th:text="${announcement.date}" class="col-11">
+								Last updated 3 mins ago
+							</small>
+						    <div class ="thumbnail text-center">
+								<img th:src="${bands.get(iterStat.index).img}" class="imgCarte card-img img-responsive" alt="...">
+								<div class= "caption">
+									<h3 th:text="${bands.get(iterStat.index).name}" class="card-title">Group Name</h3>
+								</div>
+							</div>
+							<div class="">
+								<div class="card-bodyCustom">
+									<h4 th:text="${announcement.title}" class="card-title mx-auto">Card title</h4>
+									<hr class="bg-white">
+									<p th:if="${#strings.length(announcement.Description)>99}" th:text="|${#strings.substring(announcement.Description,0, 99)} ...|" class="card-text Description">
+										This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+									</p>
+									<p th:unless="${#strings.length(announcement.Description)>99}" th:text="${announcement.Description}" class="card-text Description">
+									</p>
+									<!--  fin modifs -->
+									<div class="modal fade text-dark" th:id="|moreinfo${AdSelection.get(iterStat.index).idAnnonce}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title dark-text" id="exampleModalLabel">Plus d'informations</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<img th:src="${bands.get(iterStat.index).img}" class="card-img" alt="...">
+													<p th:text="|Poster le ${announcement.date} à ${announcement.locate}|" class="card-text"></p>
+													<hr>
+													<h4 th:text="${announcement.title}" class="card-title">Card title</h4>
+													<h5>Description : </h5>
+													<p th:text="${announcement.Description}" class="card-text"></p>
+													<hr>	
+													<div class="d-flex no-gutters row justify-content-between align-item-center">
+														<div>
+															<p th:text="|Style : ${announcement.style}|" class="card-text"></p>
+															<p th:text="|Tel : ${announcement.contactTel}|" class="card-text"></p>
+														</div>
+														<p th:text="|Mail  : ${announcement.contactMail}|" class="card-text"></p>
+													</div>
+													
+													
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary openMyModal" data-dismiss="modal">Fermer</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class ="justify-content-center d-flex">
+								<a class="btn btn-primary moreInfo " data-toggle="modal" th:href="|#moreinfo${announcement.idAnnonce}|"> <!--ICI TROUVER COMMENT RECUP ID--> Plus d'informations </a>
+							</div>
+						</div>
+				</div>
+			</section>
+			<hr class= "barSearch">
+			<section class="search col-lg-6 col-sm-11 col-11 mx-auto">
+				<h2 class="formTitle">Rechercher un groupe</h2>
+				<hr>
+					<form th:action="|@{/search/}${account.idMusician}#results|"  class="SearchForm" method="POST">
+          <!-- pas sur de moi / a checker
+					<form th:action="|@{/search/}${account.idMusician}|"  class="SearchForm" method="POST">
+          -->
+					<!-- Formulaire de recherche -->
+					<div class="form-group">
+						<label for="firstChoice"> Premier critère (*) </label>
+						<div class = "containerChoice">
+							<select class="form-control formCriteria col-md-4"  id="firstChoice" name="firstChoiceListBox" >
+								<option>Critère de recherche</option>
+								<option>Par Instrument</option>
+								<option>Par Groupe</option>
+								<option>Par Localisation</option>
+								<option>Par Style</option>
+							</select>
+							<input type="text" class="form-control formInput col-md-6" placeholder="Remplis le champ" name="firstChoiceInput">
+						</div>
+					</div>
+					<hr>
+					<div class="form-group">
+						<label for="secondChoice"> Second critère </label>
+						<div class = "containerChoice">
+							<select class="form-control formCriteria col-md-4" id="secondChoice" name="secondChoiceListBox">
+								<option>Critère de recherche</option>
+								<option>Par Instrument</option>
+								<option>Par Groupe</option>
+								<option>Par Localisation</option>
+								<option>Par Style</option>
+							</select>
+							<input type="text" class="form-control col-md-6" placeholder="Remplis le champ" name="secondChoiceInput">
+						</div>
+					</div>
+					<hr class="my-4">
+					<div class="containerButton">
+						<input type="submit" value="submit" class="btn btn-primary submitButton">
+					</div>
+				</form>
+			</section>
+			<hr id = "results">
+			<section class="result">
+				<section class="lastWanted row no-gutters">
+					<h2 th:if="${count != null}" th:text="|Résultats: ${count}|" class="col-11 selectionTitle"> 🎯 ﾟRésultat : </h2>
+					<div th:each="ad, iterStat: ${adsToPut}" class="group-card mx-auto bg-dark text-light col-md-3 col-11">
+						<div class="Resultcard row no-gutters">
+							<small th:text="${ad.date}" class="col-11"> Last updated 3 mins ago </small>
+							<div class="thumbnail text-center">
+								<img th:src="${bandsSearch.get(iterStat.index).img}" class="imgCarte card-img img-responsive" alt="...">
+								<div class="caption">
+									<h3 th:text="${bandsSearch.get(iterStat.index).name}" class="card-title">Group Name</h3>
+								</div>
+							</div>
+							<div class="">
+								<div class="card-bodyCustom">
+									<h4 th:text="${ad.title}" class="card-title">Card title</h4>
+									<hr class="bg-white">
+									<p th:if="${#strings.length(ad.Description)>99}" th:text="|${#strings.substring(ad.Description,0, 99)} ...|" class="card-text Description">
+										This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+									</p>
+									<p th:unless="${#strings.length(ad.Description)>99}" th:text="${ad.Description}" class="card-text Description">
+									</p>
+									
+									<div class="justify-content-center d-flex">
+										<a class="btn btn-primary moreInfo" data-toggle="modal" th:href="|#moreinfo${adsToPut.get(iterStat.index).idAnnonce}|">Plus d'information </a>
+									</div>
+									
+									<!-- Modal -->
+									<div class="modal fade text-dark" th:id="|moreinfo${adsToPut.get(iterStat.index).idAnnonce}|" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title dark-text" id="exampleModalLabel">Plus d'information</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<img th:src="${bandsSearch.get(iterStat.index).img}" class="card-img" alt="...">
+													<p th:text="|Poster le ${ad.date} à ${ad.locate}|" class="card-text"></p>
+													<hr>
+													<h4 th:text="${ad.title}" class="card-title">Card title</h4>
+													<h5>Description : </h5>
+													<p th:text="${ad.Description}" class="card-text"></p>
+													<hr>
+													<div class = "row">
+														<div>
+															<p th:text="|Style : ${ad.style}|" class="card-text"></p>
+															<p th:text="|Tel : ${ad.contactTel}|" class="card-text"></p>
+														</div>
+														<p th:text="|Mail  : ${ad.contactMail}|" class="card-text"></p>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</section>
+		</main>
+		<footer th:replace="footer :: bottom"></footer>
+		<script src="/JS/modal.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	</body>
+</html>

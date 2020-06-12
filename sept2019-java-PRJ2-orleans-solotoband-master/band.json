@@ -1,0 +1,82 @@
+{
+	"band": [
+		{
+			"idGroup": 1,
+			"idLead": 1,
+			"name": "Armstrong Jazz Band",
+			"style": "Jazz",
+			"contactTel": "06.15.87.68.25",
+			"contactMail": "jazzband@gmail.com",
+			"locate": "Orléans",
+			"description": "groupe Jazz composé de 6 passionnés aux inspirations de la nouvelle Orléans.",
+			"img":"/img/portrait/ArmstrongJB.png"
+		},
+		{
+			"idGroup": 2,
+			"idLead": 2,
+			"name": "Jean BigBand",
+			"style": "Pop",
+			"contactTel": "06.77.27.65.32",
+			"contactMail": "jeanmichelcava@gmail.com",
+			"locate": "Blois",
+			"description": "Jean Michel sillone les routes de France en solo depuis 35 ans. En 2018, il rencontre Jean-Pierre et Jean-Jacques et décide de former le Jean BigBand. ",
+			"img":"/img/portrait/JeanBB.png"
+		},
+		{
+			"idGroup": 3,
+			"idLead": 3,
+			"name": "We are the Fury",
+			"style": "Rock",
+			"contactTel": "06.44.29.00.39",
+			"contactMail": "henri@gmail.com",
+			"locate": "Tours",
+			"description": "Groupe rock semi-pro créé en 2000. Nous avons enregistré notre 2ème EP à l'été 2019. Nous réalisons des tournées dans toute la France",
+			"img":"/img/portrait/Wearethefury.png"
+		},
+		{
+			"idGroup": 4,
+			"idLead": 8,
+			"name": "KreposuK",
+			"style": "Musique traditionnelle",
+			"contactTel": "06.28.39.04.48",
+			"contactMail": "kenavo@gmail.com",
+			"locate": "Orléans",
+			"description": "Amoureux de la Bretagne, nous faisons revivre la tradition bretonne en y ajoutant une touche de modernité.",
+			"img":"/img/portrait/Kerposuk.png"
+		},
+		{
+			"idGroup": 5,
+			"idLead": 9,
+			"name": "Country Club 45",
+			"style": "Musique traditionnelle",
+			"contactTel": "06.81.27.01.68",
+			"contactMail": "janclaudeduss@gmail.com",
+			"locate": "Saran",
+			"description": "Amateurs de danse en ligne depuis 20 ans, nous avons décidé de créer notre propre groupe qui accompagne chacune de nos sorties.",
+			"img":"/img/portrait/Countryclub445.png"
+		},
+		{
+			"idGroup": 6,
+			"idLead": 10,
+			"name": "X-tet' Quatuor",
+			"style": "Musique Classique",
+			"contactTel": "06.32.85.67.19",
+			"contactMail": "choppin@gmail.com",
+			"locate": "Orléans",
+			"description": "Le quatuor X-Tet' est une formation professionnelle qui se produit dans toute la région Centre depuis près de 10 ans. ",
+			"img":"/img/portrait/XtetQuatuor.png"
+		}
+		,
+		{
+			"idGroup": 7,
+			"idLead": 3,
+			"name": "Grand Magus",
+			"style": "Rock",
+			"contactTel": "06.77.44.58.71",
+			"contactMail": "harddepht@gmail.com",
+			"locate": "Chartres",
+			"description": "Groupe de hard rock metal qui cherche à sortir son premier EP et à se professionnliser afin de se produire sur les plus grandes scènes de France et d'Europe.",
+			"img":"/img/portrait/GrandMagus.png"
+		}
+	]
+}

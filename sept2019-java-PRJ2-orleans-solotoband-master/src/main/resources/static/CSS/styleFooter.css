@@ -1,0 +1,55 @@
+*{
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+footer{
+  color: white;
+  text-align: center;
+  bottom:0;
+  left: 0;
+  width: 100%;
+}
+
+.iconSocialMedia {
+  display: flex;
+  justify-content: space-around;
+  width: auto;
+  height: auto;
+  color:white;
+}
+   
+footer div {
+  display:flex;
+  padding:1%;
+  border-radius:10pt;
+}
+footer img{
+  height: 50px;
+}
+ 
+.twi:hover {
+  background-color: #00acee;
+}
+ 
+.face:hover {
+  background-color: #3b5998;
+}
+ 
+.insta:hover {
+  background-color: #C36B85;
+}
+ 
+footer>.msg {
+  display: flex;
+  color: whitesmoke;
+  justify-content: center;
+  text-align: center;
+  padding: 2%;
+  margin: 0;
+ }
+ 
+ .footerBackground {
+	background-image: linear-gradient(to right top, #000000, #180310, #21081f, #220e34, #0f174c);
+}
+ 

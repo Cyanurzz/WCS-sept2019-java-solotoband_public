@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Solo To Band | L'application de rencontre entre les musiciens et les groupes</title>
+		<meta name="Author" content="Wild Code Company">
+   		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="Description" content="Vous jouez de la musique et cherchez un groupe? Cette application est la pour vous! 
+		Avec Solo To Band, retrouvez les groupes près de chez vous en postant une annonce ou en recherchant les groupes de zicos qui cherchent,
+		rentrez vos instruments, votre localisation et partez Jammer comme jamais! ">
+		<link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
+		<link rel="stylesheet" href="/CSS/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Bad+Script&display=swap" rel="stylesheet">
+		
+		<script>
+    		var myError = "[[${error}]]";
+		</script>
+	</head>
+	
+	<body>
+		<div>
+			<div class="blue"></div>
+			<video autoplay muted loop id="myVideo">
+				<source src="/img/concert.mp4" type="video/mp4">
+			</video>
+		</div>	
+		<div class="container">
+			<div class="headerContainer">
+				<div id="slider">
+				  <div>
+				    <p>74 groupes déjà inscrits</p>
+				    <p>plus de 200 annonces postées par des groupes ont trouvé un zicos</p>
+				   	<p>337 musiciens inscrits</p>
+				  </div>
+				</div>
+			</div>
+			<h1>Solo To Band</h1>
+			<div class="footerContainer">
+				<div class="accroche">
+					<p class="ml12">Ils ont trouvé leur groupe,</p>
+					<p class="ml12 ml13">pourquoi pas vous?</p>
+				</div>
+				<div class="box">
+		  			<a class="btn btn-white btn-animation-1" data-toggle="modal" href="#exampleModalCenter">Connexion</a>  			
+				</div>
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLongTitle">Connexion</h5>
+				      </div>
+				      <div class="modal-body">
+						<form action="/search" method="POST" id="loginForm">
+						  <div class="form-group">
+						    <label for="InputPseudo">Pseudo</label>
+						    <input type="text" class="form-control" id="inputPseudo" name="pseudo" placeholder="Enter pseudo">
+						  </div>
+						  <div class="form-group" id ="PasswordInput">
+						    <label for="InputPassword">Password</label>
+						    <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password">
+						  </div>
+						  <div class="form-group form-check">
+						    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+						    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+						  </div>
+						  <button type="submit" class="btn btn-primary d-flex justify-content-center mx-auto">login</button>
+						</form>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<div class= "reseauContainer" >
+					<a href="#" title="link to Facebook"><img src="/img/icons8-facebook-50.svg" alt=""></a>
+					<a href="#" title="link to Instagram"><img src="/img/icons8-instagram-50.svg" alt=""></a>
+					<a href="#" title="link to Twitter"><img src="/img/icons8-twitter-50.svg" alt=""></a>
+				</div>
+			</div>
+		</div>
+		<script src="/JS/Ajax.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+		<script src="/JS/anime.js"></script>
+
+	</body>
+</html>

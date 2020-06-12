@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Solo To Band | Page de Profil de Groupes</title>
+	<meta name="Author" content="Wild Code Company">
+	 <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="Description" content="Ici vous pouvez cherchez et trouvez le groupes de vos rèves en quelques cliques. Solo to Band l'application n°1 de rencontre de Musiciens à Groupes ">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Bad+Script&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
+	<link rel="stylesheet" href="/CSS/globalStyle.css">
+	<link rel="stylesheet" href="/CSS/styleFooter.css">
+</head>
+<body>
+	<header th:replace="navBar.html :: top">
+		<script src="/JS/navBar.js"></script>
+	</header>
+	<main>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item active" aria-current="page">Home</li>
+				<li class="breadcrumb-item"><a th:href="|/search/${account.idMusician}|">Profil</a></li>
+				<li class="breadcrumb-item active" aria-current="page">MonGroupe</li>
+			</ol>
+		</nav>
+		<div class="jumbotron text-white bg-dark">
+			<div class="completJumbotron">
+				<div>
+					<h1> Bienvenue sur la page de gestion de ton groupe </h1>
+					<h1 th:text="|- ${myBand.get(0).name} -|"></h1>
+					<hr class="my-4">
+					<div class="blocImg">
+						<img th:src="${myBand.get(0).img}" alt="..." class="imgJumbotron">
+						<div class="ident">
+							<p th:text="|Style: ${myBand.get(0).style}|"></p>
+							<p th:text="|Localité: ${myBand.get(0).locate}|"></p>
+							<p th:text="|Tel: ${myBand.get(0).contactTel}|"></p>
+							<p th:text="|Mail: ${myBand.get(0).contactMail}|"></p>
+						</div>
+						<a class="btn btn-primary btn-lg bouton" th:href="|/annoncesBand/${account.idMusician}|" role="button">Gerer mes annonces</a>
+					</div>
+				</div>
+				<div class="pub">
+					<p>Publicités</p>
+					<img src="/img/pub1.png" alt="photo de pub">
+					<img src="/img/pub2.gif" alt="photo de pub">
+				</div>
+			</div>
+		</div>
+		<hr>
+		<section class="lastWanted  row no-gutters">
+			<h2 class="col-11 selectionTitle"> Ces annonces de musiciens pourraient t'intéresser ! </h2>
+			<div th:each="announcement, iterStat : ${ads}" th:if="${iterStat.index}<3" class="card mx-auto col-11 col-md-3 bg-dark text-light" >
+<!-- je sais pas 
+        <h3 th:text="${announcement.musicianFirstName}" class="card-title card-header">Musician Name</h3>
+				<div class="row no-gutters Resultcard">
+					<div class="col-lg-2 col-md-10 Resultcard">
+						<img th:src="${announcement.musicianImg}" class="card-img" alt="...">
+!-->
+				<div class="card-header">
+					<small th:text="${announcement.date}">
+						Last updated 3 mins ago
+					</small>
+				</div>
+				<div class="thumbnail text-center">
+					<img th:src="${announcement.musicianImg}" class=" card-img img-responsive" alt="...">
+					<div class="caption">
+						<h3 th:text="${announcement.musicianFirstName}" class="card-title">Group Name</h3>
+					</div>
+				</div>
+				<div class="row no-gutters Resultcard">
+					<div class="col-md-10">
+						<div class="card-bodyCustom">
+							<h4 th:text="${announcement.title}" class="card-title">Card title</h4>
+							<hr class="bg-white">
+							<p th:if="${#strings.length(announcement.Description)>99}" th:text="|${#strings.substring(announcement.Description,0, 99)} ...|" class="card-text Description">
+								This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+							</p>
+							<p th:unless="${#strings.length(announcement.Description)>99}" th:text="${announcement.Description}" class="card-text Description">
+							</p>
+	
+							<div class="modal fade text-dark" th:id="|moreinfo${announcement.idAnnonce}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title dark-text" id="exampleModalLabel">Plus d'informations</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<img th:src="${announcement.musicianImg}" class="card-img" alt="...">
+													<p th:text="|Poster le ${announcement.date} à ${announcement.locate}|" class="card-text"></p>
+													<hr>
+													<h4 th:text="${announcement.title}" class="card-title">Card title</h4>
+													<h5>Description : </h5>
+													<p th:text="${announcement.Description}" class="card-text"></p>
+													<hr>	
+													<div class="d-flex no-gutters row justify-content-between align-item-center">
+														<div>
+															<p th:text="|Style : ${announcement.style}|" class="card-text"></p>
+															<p th:text="|Tel : ${announcement.contactTel}|" class="card-text"></p>
+														</div>
+														<p th:text="|Mail  : ${announcement.contactMail}|" class="card-text"></p>
+													</div>
+													
+													
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary openMyModal" data-dismiss="modal">Fermer</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class ="justify-content-center d-flex bottomBtn">
+								<a class="btn btn-primary moreInfo " data-toggle="modal" th:href="|#moreinfo${announcement.idAnnonce}|"> <!--ICI TROUVER COMMENT RECUP ID--> Plus d'informations </a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<hr class="barSearch">
+		<section class="search col-lg-6 col-sm-11 col-11 mx-auto">
+			<h2 class="formTitle">Rechercher un Musicien</h2>
+			<hr class="my-4">
+			<form th:action="|/resultgroup/${account.idMusician}|" class="SearchForm">
+					<!-- Formulaire de recherche -->
+				<div class="form-group">
+						<label for="firstChoice"> Premier critère (*) </label>
+						<div class = "containerChoice">
+							<select class="form-control formCriteria col-md-4"  id="firstChoice" name="firstChoiceListBox" >
+								<option>Critère de recherche</option>
+								<option>Par Instrument</option>
+								<option>Par Musicien</option>
+								<option>Par Localisation</option>
+								<option>Par Style</option>
+							</select>
+							<input type="text" class="form-control formInput col-md-6" placeholder="Remplis le champ" name="firstChoiceInput">
+						</div>
+					</div>
+					<hr>
+					<div class="form-group">
+						<label for="secondChoice"> Second critère </label>
+						<div class = "containerChoice">
+							<select class="form-control formCriteria col-md-4" id="secondChoice" name="secondChoiceListBox">
+								<option>Critère de recherche</option>
+								<option>Par Instrument</option>
+								<option>Par Musicien</option>
+								<option>Par Localisation</option>
+								<option>Par Style</option>
+							</select>
+							<input type="text" class="form-control col-md-6" placeholder="Remplis le champ" name="secondChoiceInput">
+						</div>
+					</div>
+					<hr class="my-4">
+					<div class="containerButton">
+						<input type="submit" value="submit" class="btn btn-primary submitButton">
+					</div>
+				</form>
+		</section>
+	</main>
+	<footer th:replace="footer :: bottom">
+    </footer>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>page admin</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body> 
+	<section>
+		<h1>liste des musiciens</h1>
+		<div th:each="ads: ${myMusicians}"class="card md-6">
+			<div class="row no-gutters">
+				<div class="col-md-3">
+				<img th:src="${ads.img}" class="card-img" alt="...">
+				</div>
+				<div class="col-md-9">
+				<div class="card-body">
+					<h5 th:text="|${ads.lastName} ${ads.firstName}|"class="card-title">Card title</h5>
+					<p th:text="|id: ${ads.idMusician}|"class="card-text"></p>
+					<p th:text="|style: ${ads.style}|"class="card-text"></p>
+					<p th:text="|ville: ${ads.locate}|"class="card-text"></p>
+					<p th:text="|tel: ${ads.contactTel} , mail : ${ads.contactMail}|"class="card-text"></p>
+					<p th:text="|instrument: ${ads.instrument}|"class="card-text"></p>
+				</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section>
+		<h1>liste des groupes</h1>
+		<div th:each="bands: ${myBands}"class="card md-6">
+			<div class="row no-gutters">
+				<div class="col-md-3">
+				<img th:src="${bands.img}" class="card-img" alt="...">
+				</div>
+				<div class="col-md-9">
+				<div class="card-body">
+					<h5 th:text="|${bands.name}|"class="card-title">Card title</h5>
+					<p th:text="|id bands: ${bands.idGroup} id lead: ${bands.idLead}|"class="card-text"></p>
+					<p th:text="|style: ${bands.style}|"class="card-text"></p>
+					<p th:text="|ville: ${bands.locate}|"class="card-text"></p>
+					<p th:text="|tel: ${bands.contactTel} , mail : ${bands.contactMail}|"class="card-text"></p>
+					<p th:text="|description: ${bands.description}|"class="card-text"></p>
+				</div>
+				</div>
+			</div>
+		</div>
+	</section>
+<section>
+		<h1>liste des annonces</h1>
+		<div th:each="ads: ${myAds}"class="card md-9">
+			<div class="row no-gutters">
+				<div class="col-md-9">
+				<div class="card-body">
+					<h5 th:text="|${ads.title}|"class="card-title">Card title</h5>
+					<p th:text="|id groupe: ${ads.idGroup} id ads: ${ads.idAnnonce} |"class="card-text"></p>
+					<p th:text="|style: ${ads.style}|"class="card-text"></p>
+					<p th:text="|ville: ${ads.locate}|"class="card-text"></p>
+					<p th:text="|tel: ${ads.contactTel} , mail : ${ads.contactMail}|"class="card-text"></p>
+					<p th:text="|description: ${ads.description}|"class="card-text"></p>
+				</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+
+
+
+	<footer th:replace="footer.html :: bottom">
+    </footer>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="/JS/navBar.js"></script>
+</body>
+</html>

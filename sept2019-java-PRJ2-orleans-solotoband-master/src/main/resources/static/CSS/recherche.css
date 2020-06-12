@@ -1,0 +1,138 @@
+* {
+	font-family: 'Roboto', sans-serif;
+}
+body{
+	display:flex;
+	flex-direction:column;
+	justify-content:space-around;
+}
+header {
+	color: #5A5C5E;
+}
+
+h2 {
+    font-size: 2em;
+	font-style: italic;
+	color: rgb(206, 87, 231);
+}
+
+fieldset {
+
+	font-size: 10pt;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+
+#mention {
+	font-size: 8pt;
+}
+
+fieldset{
+    display: flex;
+    flex-direction: column;
+}
+.submit{
+    margin: 0 auto;
+    text-align: center;
+}
+#submit{
+    display: flex;
+    justify-content: center;
+    padding: 10px 20px;
+    margin: 0.5em;
+    width: 250px;
+    height: 3em;
+    text-decoration: none;
+    font-family: 'robot', sans-serif;
+    font-size: 15px;
+    color: rgb(255, 255, 255);
+    background: rgb(206, 87, 231);
+    border-radius: 10px;
+    transition: 1s;
+    box-shadow: 2px 2px 0 rgb(167, 165, 165);
+    transform: skewX(-15deg);
+}
+fieldset p{
+    text-align: center;
+    font-weight: bold;
+    margin-top: 1.8em;
+    margin-bottom: 0;
+}
+fieldset input{
+    background: rgb(233, 233, 235);
+    height: 1.3em;
+}
+
+#bloc1 {
+    display: flex;
+    align-items: center;
+}
+
+
+.first_title h2{
+    font-family: 'robot', sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0;
+    padding-left: 1.3em;
+}
+
+.separate p{
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0;
+    padding-right: 0.8em;
+}
+
+.result{
+
+    z-index: 0;
+    top: 165px;
+    background: rgba(230, 227, 227, 0.397);
+    width: 100%;
+    margin: -1em auto 0 auto;
+    padding: 1.5em 0 1em 0; 
+}
+.annonce{
+    display: flex;
+    width: 95%;
+    flex-direction: column;
+    padding: 0.8em;
+    background: white;
+    margin: 1em auto 0 auto;
+
+}
+
+.annonce_first{
+    display: flex;
+    justify-content: space-between;
+
+}
+.title{ 
+    font-size: 15px;
+    padding: 1em;
+}
+.date{
+    font-size: 10px;
+}
+.text{
+    font-size: 12px;
+    padding: 0.8em 0;
+}
+.contact{
+    font-size: 12px;
+    font-style: oblique;
+}
+
+@media screen and (min-width: 900px){
+    #container {
+        flex-direction: row;   
+    }
+
+}

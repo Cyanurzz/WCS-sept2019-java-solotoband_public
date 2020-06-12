@@ -1,0 +1,167 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creation d'annonce de groupe</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="/CSS/globalStyle.css">
+  <link rel="stylesheet" href="/CSS/Annonce.css">
+  <link rel="stylesheet" href="/CSS/styleFooter.css">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header th:replace="navBar.html :: top">
+    </header>
+    <main>
+		<nav aria-label="breadcrumb" class="col-11">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item active" aria-current="page">Home</li>
+				<li class="breadcrumb-item active" aria-current="page">Profil</li>
+				<li class="breadcrumb-item"><a th:href="|/profilgroup/${account.idMusician}|">Mon Groupe</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Mes annonces</li>
+			</ol>
+		</nav>
+    <h1 class="selectionTitle">Gestion des annonces de groupe</h1>
+    
+    <form name="annonce" th:action="|@{/createAdBand/}${account.idMusician}|" method="get">
+    	<h2>Créer mon annonce</h2>
+        <fieldset class="firstPart">
+            <div class="titreAnnonce1">
+                <label for="titre">Entre le titre de l'annonce</label><br />
+                <input type="text" name="titre" required class="titreAnnonce">
+            </div>
+            <div class="localisation">
+                <label for="localisation">Ville</label><br />
+                <input type="text" name="localisation" required class="ville">
+            </div>                
+			<div class="formgroup">
+				<label for="exampleSelect1">Instrument recherché</label>
+				<select class="form-control" id="exampleSelect1">
+					<option>Instrument</option>
+					<option>Basse</option>
+					<option>Batterie</option>
+					<option>Clavier</option>
+					<option>Contrebasse</option>
+					<option>Guitare</option>
+					<option>Piano</option>
+					<option>Saxophone</option>
+					<option>Tamtam</option>
+					<option>Violon</option>
+					<option>Voix</option>				
+				</select>
+			</div>
+            <div class="description1">
+                <label>Saisis la description de ton annonce </label><br />
+                <textarea name="description" rows="5" cols="30" class="description"></textarea>
+            </div>
+            <div class="containerButton">
+                <input type="submit" value="Publier mon annonce" class="btn btn-primary submitButton">
+                <input type="reset" value="Annuler" class="btn btn-primary submitButton"/>
+            </div>
+        </fieldset>
+    </form>
+    <h2 class="selectionTitle">Liste des annonces de ton groupe</h2>
+ 	<p th:if="${myAds.size() ==0}" th:text ="|Vous n'avez aucune annonce|">Mes annonces</p>
+    <section class="result col-11">
+				<section class="lastWanted  row no-gutters">
+					<div th:each="ad : ${myAds}" class="group-card bg-dark mx-auto text-light col-md-3 col-11">
+						<div class ="card-header d-flex justify-content-between">
+							<small th:text="|${ad.date}|" class="d-flex align-items-center">
+								Last updated 3 mins ago
+							</small>
+							<div class="d-flex flex-row">
+								<button type="button" class="btn btn-link" data-toggle="modal" th:data-target="|#exampleModal${ad.IdAnnonce}|"><img src="/img/edit.png" class ="editBtn" alt="edit content"></button>
+								<a class="btn btn-link " th:href="|@{/deleteAdBand/}${account.idMusician}\?adId=${ad.IdAnnonce}|"><img src="/img/icons8-undefined-50.png" alt="delete"></a>
+							</div>
+							</div>
+							<div class ="thumbnail text-center">
+								<img th:src="${myBand.get(0).img}" class="card-img img-responsive" alt="...">
+								<div class= "caption">
+									<h3 th:text="${account.pseudo}" class="card-title">Group Name</h3>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="card-bodyCustom">
+									<h4 th:text="${ad.title}" class="card-title">Card title</h4>
+									<hr class="bg-white">
+									<p th:text="${ad.Description}" class="card-text">
+										This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+									</p>
+								</div>
+							</div>
+							<div class="modal text-dark" th:id="|exampleModal${ad.IdAnnonce}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog col-12" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">
+												Modifier :
+											</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										</div>
+										<div class="modal-body">
+											<form name="annonce" class= "col-12" th:action="|@{/updateAdBand/}${account.idMusician}/${ad.IdAnnonce}|" method="get">
+												<fieldset class="firstPart">
+													<div class="titreAnnonce1">
+														<label for="titre">Entre le titre de l'annonce</label>
+														<br />
+														<input type="text" name="titre" required class="titreAnnonce" th:value="${ad.title}">
+													</div>
+													<div class="localisation">
+														<label for="localisation">Ville</label>
+														<br />
+														<input type="text" name="localisation" required class="ville" th:value ="${ad.locate}">
+													</div>
+													<div class="form-group">
+														<label for="exampleSelect1">Instrument recherché</label>
+														<select class="form-control" id="exampleSelect1" name="instrument" th:selected="${ad.instrument}">
+															<option th:if=" ${ad.instrument == 'Instrument'}" selected >Instrument</option>
+															<option th:unless=" ${ad.instrument != 'Instrument'}">Instrument</option>
+															<option th:if=" ${ad.instrument == 'basse'}" selected >Basse</option>
+															<option th:unless=" ${ad.instrument == 'basse'}">Basse</option>
+															<option th:if=" ${ad.instrument == 'batterie'}" selected >Batterie</option>
+															<option th:unless=" ${ad.instrument == 'batterie'}">Batterie</option>
+															<option th:if=" ${ad.instrument == 'clavier'}" selected >Clavier</option>
+															<option th:unless=" ${ad.instrument == 'clavier'}">Clavier</option>
+															<option th:if=" ${ad.instrument == 'contrebasse'}" selected >Contrebasse</option>
+															<option th:unless=" ${ad.instrument == 'contrebasse'}">Contrebasse</option>
+															<option th:if=" ${ad.instrument == 'guitare'}" selected >Guitare</option>
+															<option th:unless=" ${ad.instrument == 'guitare'}">Guitare</option>
+															<option th:if=" ${ad.instrument == 'piano'}" selected >Piano</option>
+															<option th:unless=" ${ad.instrument == 'piano'}">Piano</option>
+															<option th:if=" ${ad.instrument == 'saxophone'}" selected >Saxophone</option>
+															<option th:unless=" ${ad.instrument == 'saxophone'}">Saxophone</option>
+															<option th:if=" ${ad.instrument == 'tamtam'}" selected >Tamtam</option>
+															<option th:unless=" ${ad.instrument == 'tamtam'}">Tamtam</option>
+															<option th:if=" ${ad.instrument == 'violon'}" selected >Violon</option>
+															<option th:unless=" ${ad.instrument == 'violon'}">Violon</option>
+															<option th:if=" ${ad.instrument == 'voix'}" selected >Voix</option>
+															<option th:unless=" ${ad.instrument == 'voix'}">Voix</option>
+														</select>
+													</div>
+													<div class="description1">
+														<label>Saisis la description de ton annonce</label>
+														<br />
+														<textarea name="description" rows="5" cols="30"class="description" th:text="${ad.description}"></textarea>
+													</div>
+													<div class="containerButton">
+														<input type="submit" value="Modifier mon annonce"class="btn btn-primary">
+														<input type="reset" value="Annuler"class="btn btn-primary" data-dismiss="modal" />
+													</div>
+												</fieldset>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</section>
+			</main>
+		<footer th:replace="footer.html :: bottom"></footer>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"crossorigin="anonymous"></script>
+		<script src="/JS/navBar.js"></script>
+	</body>
+</html>

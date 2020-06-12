@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Solo To Band | Page de Recherche de Groupes</title>
+	<meta name="Author" content="Wild Code Company">
+	 <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="Description" content="Ici vous pouvez cherchez et trouvez le groupes de vos rèves en quelques cliques. Solo to Band l'application n°1 de rencontre de Musiciens à Groupes ">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Bad+Script&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
+	<link rel="stylesheet" href="/CSS/globalStyle.css">
+	<link rel="stylesheet" href="/CSS/styleFooter.css">
+</head>
+<body>
+	<header th:replace="navBar.html :: top"> </header>
+	<main>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item active" aria-current="page">Home</li>
+				<li class="breadcrumb-item active" aria-current="page">Profil</li>
+				<li class="breadcrumb-item"><a th:href="|/profilgroup/${account.idMusician}|">Mon Groupe</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Recherche</li>
+			</ol>
+		</nav>
+		<section class="result">
+			<section class="lastWanted  row no-gutters">
+
+				<h2 class="col-11 selectionTitle"> Voici le resultat de tes recherches ! </h2>
+				<h2 th:if="${count != null}" th:text ="|Résultats: ${count}|" class="col-11 selectionTitle"> Résultat(s) :  </h2>
+
+				<div th:each="ad, iterStat: ${adsToPut}" class="group-card mx-auto bg-dark text-light col-md-3 col-11">
+					<div class="card-header">
+						<small th:text="${ad.date}">
+							Last updated 3 mins ago
+						</small>
+					</div>
+					<div class ="thumbnail text-center">
+						<img th:src="${musiciansSearch.get(iterStat.index).img}" class=" card-img img-responsive" alt="...">
+						<div class= "caption">
+							<h3 th:text="${musiciansSearch.get(iterStat.index).firstName}" class="card-title">Group Name</h3>
+						</div>
+					</div>
+					<div class="row no-gutters Resultcard">
+						<div class="col-md-10">
+							<div class="card-bodyCustom">
+								<h4 th:text="${ad.title}" class="card-title">Card title</h4>
+								<hr class="bg-white">
+								<p th:if="${#strings.length(ad.Description)>99}" th:text="|${#strings.substring(ad.Description,0, 99)} ...|" class="card-text Description">
+									This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+								</p>
+								<p th:unless="${#strings.length(ad.Description)>99}" th:text="${ad.Description}" class="card-text Description">
+								</p>
+
+							</div>
+						</div>
+						<div class ="justify-content-center d-flex">
+							<a class="btn btn-primary moreInfo " data-toggle="modal" th:href="|#moreinfo${ad.idAnnonce}|"> <!--ICI TROUVER COMMENT RECUP ID--> Plus d'informations </a>
+						</div>
+						<div class="modal fade text-dark" th:id="|moreinfo${ad.idAnnonce}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title dark-text" id="exampleModalLabel">Plus d'informations</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<img th:src="${musiciansSearch.get(iterStat.index).img}" class="card-img" alt="...">
+										<p th:text="|Poster le ${ad.date} à ${ad.locate}|" class="card-text"></p>
+										<hr>
+										<h4 th:text="${ad.title}" class="card-title">Card title</h4>
+										<h5>Description : </h5>
+										<p th:text="${ad.Description}" class="card-text"></p>
+										<hr>
+										<div class="d-flex no-gutters row justify-content-between align-item-center">
+											<div>
+												<p th:text="|Style : ${ad.style}|" class="card-text"></p>
+												<p th:text="|Tel : ${ad.contactTel}|" class="card-text"></p>
+											</div>
+											<p th:text="|Mail  : ${ad.contactMail}|" class="card-text"></p>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary openMyModal" data-dismiss="modal">Fermer</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</section>
+		<section class="lastWanted  row no-gutters">
+		<h2 class="col-11 selectionTitle"> Lance une nouvelle recherche </h2>
+			<section class="search col-lg-6 col-sm-11 col-11 mx-auto">
+				<h2 class="formTitle">Rechercher un musicien</h2>
+				<hr class="my-4">
+				<form th:action="|/resultgroup/${account.idMusician}|" class="SearchForm">
+					<!-- Formulaire de recherche -->
+				<div class="form-group">
+						<label for="firstChoice"> Premier critère (*) </label>
+						<div class = "containerChoice">
+							<select class="form-control formCriteria col-md-4"  id="firstChoice" name="firstChoiceListBox" >
+								<option>Critère de recherche</option>
+								<option>Par Instrument</option>
+								<option>Par Musicien</option>
+								<option>Par Localisation</option>
+								<option>Par Style</option>
+							</select>
+							<input type="text" class="form-control formInput col-md-6" placeholder="Remplis le champ" name="firstChoiceInput">
+						</div>
+					</div>
+					<hr>
+					<div class="form-group">
+						<label for="secondChoice"> Second critère </label>
+						<div class = "containerChoice">
+							<select class="form-control formCriteria col-md-4" id="secondChoice" name="secondChoiceListBox">
+								<option>Critère de recherche</option>
+								<option>Par Instrument</option>
+								<option>Par Musicien</option>
+								<option>Par Localisation</option>
+								<option>Par Style</option>
+							</select>
+							<input type="text" class="form-control col-md-6" placeholder="Remplis le champ" name="secondChoiceInput">
+						</div>
+					</div>
+					<hr class="my-4">
+					<div class="containerButton">
+						<input type="submit" value="submit" class="btn btn-primary submitButton">
+					</div>
+				</form>
+			</section>
+		</section>
+	</main>
+	<footer th:replace="footer :: bottom">
+    </footer>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
